@@ -1,0 +1,53 @@
+# Rust / Soroban
+target/
+**/*.rs.bk
+*.wasm
+
+# Node
+node_modules/
+dist/
+.env
+.env.*
+
+# Circom / snarkjs build artifacts (large / regenerable)
+*.ptau
+*.zkey
+*.wtns
+*.r1cs
+*.sym
+**/*_js/
+build/
+circuits/build/
+
+# Keys & secrets — NEVER commit
+*.pem
+secrets/
+.soroban/
+stellar-keys/
+*.secret
+
+# OS / editor
+.DS_Store
+.idea/
+*.swp
+
+# keep committed production keys
+!circuits/keys/
+!circuits/keys/**
+
+# ASP curator runtime state
+asp-service/approved.json
+
+web/dist/
+
+# installed agent skills (tooling, not project code)
+.agents/
+
+# web-served circuit artifacts (copied from circuits/ by sync-circuits)
+web/public/circuits/*.wasm
+web/public/circuits/*.zkey
+web/public/circuits/*.json
+
+# local session + tooling artifacts
+.claude/
+skills-lock.json
