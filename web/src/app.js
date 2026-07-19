@@ -14,6 +14,7 @@ import { recipientField } from "../../client/src/address.js";
 import { toDec } from "../../client/src/field.js";
 import { MerkleTree } from "../../client/src/merkle.js";
 import { viewHome, initHome } from "./home.js";
+import { viewWalletPanel, initWalletPanel } from "./wallet-panel.js";
 
 // ASP operator endpoint. Set VITE_OPERATOR at build time to point at your
 // deployed operator; defaults to the local one for development.
@@ -21,6 +22,7 @@ const OPERATOR =
   import.meta.env.VITE_OPERATOR || "http://localhost:8787";
 const state = { address: null, view: "home", selected: null };
 let homeTeardown = null;
+let walletTeardown = null;
 const $ = (id) => document.getElementById(id);
 const short = (a) => (a ? a.slice(0, 5) + "…" + a.slice(-5) : "");
 
@@ -75,7 +77,7 @@ function requireWallet() {
 }
 
 // ---------- nav ----------
-const TABS = [["deposit", "Deposit"], ["withdraw", "Withdraw"], ["pool", "Pool"], ["auditor", "Auditor"]];
+const TABS = [["deposit", "Deposit"], ["withdraw", "Withdraw"], ["pool", "Pool"], ["auditor", "Auditor"], ["wallet", "Wallet"]];
 const HOME_NAV = [["#how", "How it works"], ["#proof-band", "The proof"], ["#live", "Live"]];
 function renderNav() {
   const nav = $("nav");
@@ -99,6 +101,7 @@ function render() {
   const isHome = state.view === "home";
   document.documentElement.dataset.page = isHome ? "home" : "app";
   if (homeTeardown && !isHome) { homeTeardown(); homeTeardown = null; }
+  if (walletTeardown && state.view !== "wallet") { walletTeardown(); walletTeardown = null; }
   renderNav();
   renderWallet();
   const v = $("view");
@@ -111,6 +114,7 @@ function render() {
   else if (state.view === "withdraw") { v.innerHTML = viewWithdraw(); wireWithdraw(); }
   else if (state.view === "pool") { v.innerHTML = viewPool(); loadPool(); }
   else if (state.view === "auditor") { v.innerHTML = viewAuditor(); $("a-btn").onclick = doAudit; }
+  else if (state.view === "wallet") { v.innerHTML = viewWalletPanel(); walletTeardown = initWalletPanel(); }
   wireGlow();
 }
 
@@ -391,4 +395,15 @@ function wireGlow() {
 // ---------- boot ----------
 const brand = document.querySelector(".brand");
 if (brand) { brand.style.cursor = "pointer"; brand.onclick = goHome; }
+
+// Deep-link: /#wallet (and other tabs) opens that view directly so a reviewer
+// can land straight on the Freighter flow.
+const APP_VIEWS = new Set(TABS.map(([k]) => k));
+const hashView = () => location.hash.replace(/^#/, "");
+window.addEventListener("hashchange", () => {
+  const key = hashView();
+  if (APP_VIEWS.has(key) && key !== state.view) { state.view = key; render(); }
+});
+if (APP_VIEWS.has(hashView())) state.view = hashView();
+
 render();
