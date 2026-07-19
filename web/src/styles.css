@@ -242,10 +242,29 @@ textarea.inp { height: auto; padding: 14px 16px; line-height: 1.6; font-size: 13
 @keyframes sp-fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 [data-anim] { animation: sp-fadeup 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-@media (max-width: 620px) {
-  .wrap { padding: 0 18px; }
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
   .tiles, .two, .aud-grid { grid-template-columns: 1fr; }
-  .nav button { padding: 8px 11px; font-size: 13.5px; }
+
+  /* Header: brand + wallet stay on row 1, the tab nav drops to its own
+     full-width, horizontally scrollable row 2 so tabs never overflow. */
+  .topbar { flex-wrap: wrap; height: auto; min-height: 62px; padding: 11px 0; gap: 10px; }
+  .nav { order: 5; flex-basis: 100%; margin-left: 0; gap: 4px;
+    flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding-bottom: 2px; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav button, .nav a { flex: none; white-space: nowrap; padding: 8px 12px; font-size: 13.5px; }
+
+  /* Spacing + surfaces sized down for small screens. */
+  .panel-area { padding: 30px 0 64px; }
+  .card-pad, .card-pad.lg { padding: 20px 18px; }
+  .card-head h1 { font-size: 19px; }
+  .dep-box { padding: 16px; }
+  .dep-box .amt .n { font-size: 30px; }
+  .info-rows { padding: 2px 16px; }
+
+  /* Toasts span the width instead of overflowing off-screen. */
+  .toasts { left: 14px; right: 14px; bottom: 14px; max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -392,8 +411,19 @@ html[data-page="home"] #view { display: block !important; }
 .hx-foot-mit { font: 500 12px var(--mono); color: var(--fg-38); }
 
 @media (max-width: 900px) {
-  .hx-dd, .hx-steps, .hx-proofs, .hx-live { grid-template-columns: 1fr; }
+  .hx-dd, .hx-proofs, .hx-live { grid-template-columns: 1fr; }
+  .hx-steps { grid-template-columns: 1fr 1fr; }
+  .hx-band-inner { padding: 0 20px; }
   .hx-microrow { gap: 12px; }
+}
+@media (max-width: 640px) {
+  .hx-steps { grid-template-columns: 1fr; }
+  .hx-band-inner { padding: 0 16px; }
+  .hx-sec { padding: clamp(56px, 14vw, 90px) 0 0; }
+  .hx-hero { padding: 24px 0 48px; }
+  .hx-actions { margin-top: 30px; }
+  .hx-actions .hx-btn { flex: 1 1 auto; justify-content: center; }
+  .hx-foot { gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1 !important; }
