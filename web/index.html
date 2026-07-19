@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanctum Pool — Compliant Privacy on Stellar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="root" id="root">
+      <div class="bg bg-grid"></div>
+      <div class="bg bg-spot" id="bg-spot"></div>
+      <div class="bg bg-spot-grid" id="bg-spot-grid"></div>
+      <div class="bg bg-blob-a"></div>
+      <div class="bg bg-blob-b"></div>
+
+      <div class="wrap">
+        <header class="topbar">
+          <div class="brand">
+            <span class="logo"><svg viewBox="0 0 100 130" width="27" height="35" aria-hidden="true"><path d="M85 25 C85 11 61 5 44 11 C21 19 9 38 15 60 C19 79 41 81 57 70 C73 60 87 65 88 83 C89 103 69 112 50 108 C37 105 30 100 28 91" fill="none" stroke="#F3FFFB" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="name">Sanctum</span>
+          </div>
+          <nav class="nav" id="nav"></nav>
+          <div class="spacer"></div>
+          <div id="wallet-slot"></div>
+        </header>
+
+        <div class="panel-area"><div id="view" style="width:100%;display:flex;justify-content:center;"></div></div>
+      </div>
+    </div>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+    <div id="modal-root"></div>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
