@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # ── Smart Contract CI ──────────────────────────────────────────────────────
+  contracts:
+    name: Smart Contracts (build)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+
+      - name: Cache Cargo build
+        uses: Swatinem/rust-cache@v2
+
+      # Build only the two contract crates for wasm — the workspace also
+      # contains tools/circom2soroban, a native binary that must NOT be built
+      # for the wasm32v1-none target.
+      - name: Build contracts (wasm32v1-none, release)
+        run: cargo build --target wasm32v1-none --release -p sanctum-verifier -p sanctum-pool
+
+      - name: Upload WASM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-wasms
+          path: target/wasm32v1-none/release/*.wasm
+          if-no-files-found: warn
+
+  # ── Frontend CI ────────────────────────────────────────────────────────────
+  frontend:
+    name: Frontend (build)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # web imports shared crypto from ../../client/src, so the client package's
+      # deps (@noble/*, circomlibjs) must be installed for its imports to resolve.
+      - name: Install client deps
+        working-directory: client
+        run: npm ci
+
+      - name: Install web deps
+        working-directory: web
+        run: npm ci
+
+      - name: Build (Vite)
+        working-directory: web
+        env:
+          VITE_OPERATOR: https://sanctum-pool-uuhl.onrender.com
+        run: npm run build
+
+      - name: Upload web build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: web/dist
+          if-no-files-found: warn
+
+  # ── Operator CI ────────────────────────────────────────────────────────────
+  operator:
+    name: Operator (install + check)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: operator
+        run: npm ci
+
+      - name: Syntax check
+        working-directory: operator
+        run: node --check operator.mjs
