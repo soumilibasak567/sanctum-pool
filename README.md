@@ -22,7 +22,7 @@
 | Surface | URL / Status |
 |---|---|
 | **Verifier contract (Stellar Expert)** | https://stellar.expert/explorer/testnet/contract/CAHBSVRPU4QRWPAUERYHEVOLL376Y7V4HPMQ6XNYF527ZLQD2NTEGNUZ |
-| **Pool contract (Stellar Expert)** | https://stellar.expert/explorer/testnet/contract/CDX247NWHXG466ZUAH7DMTRZZMQ5UMX5IB3PIPDHDMNXKUBTDV7FBUVG |
+| **Pool contract (Stellar Expert)** | https://stellar.expert/explorer/testnet/contract/CCDQ2BSPSUH7P2J7PK2E7Z6XLVFVTXYZVIPBUS42U22WMD2NMM7MUJCP |
 | **Frontend (web dApp)** | Runs locally via `npm run dev` — *no public deployment configured* |
 | **Operator / ASP API** | Runs locally on `http://localhost:8787` — *no public deployment configured* |
 | **Demo video** | *Not available* |
@@ -365,7 +365,7 @@ pub fn withdraw(env, proof_bytes: Bytes, nullifier_hash: U256,
 | Contract | Address |
 |---|---|
 | **Verifier** (Groth16 / BN254) | `CAHBSVRPU4QRWPAUERYHEVOLL376Y7V4HPMQ6XNYF527ZLQD2NTEGNUZ` |
-| **Pool** | `CDX247NWHXG466ZUAH7DMTRZZMQ5UMX5IB3PIPDHDMNXKUBTDV7FBUVG` |
+| **Pool** | `CCDQ2BSPSUH7P2J7PK2E7Z6XLVFVTXYZVIPBUS42U22WMD2NMM7MUJCP` |
 
 **Supporting addresses:**
 
@@ -376,7 +376,7 @@ pub fn withdraw(env, proof_bytes: Bytes, nullifier_hash: U256,
 
 Contract IDs are wired into `web/src/config.js`, `operator/config.js`, and recorded in [`deployments/`](deployments/). Pool parameters: `denom_amount = 1_000_000` stroops (**0.1 XLM**), `denom_field = 1_000_000`, `scope = 1`.
 
-> [View pool on Stellar Expert →](https://stellar.expert/explorer/testnet/contract/CDX247NWHXG466ZUAH7DMTRZZMQ5UMX5IB3PIPDHDMNXKUBTDV7FBUVG)
+> [View pool on Stellar Expert →](https://stellar.expert/explorer/testnet/contract/CCDQ2BSPSUH7P2J7PK2E7Z6XLVFVTXYZVIPBUS42U22WMD2NMM7MUJCP)
 
 ---
 
@@ -595,7 +595,7 @@ VITE_OPERATOR=http://localhost:8787   # ASP operator endpoint (defaults to local
 ```js
 export const CONFIG = {
   verifier: "CAHBSVRPU4QRWPAUERYHEVOLL376Y7V4HPMQ6XNYF527ZLQD2NTEGNUZ",
-  pool:     "CDX247NWHXG466ZUAH7DMTRZZMQ5UMX5IB3PIPDHDMNXKUBTDV7FBUVG",
+  pool:     "CCDQ2BSPSUH7P2J7PK2E7Z6XLVFVTXYZVIPBUS42U22WMD2NMM7MUJCP",
   token:    "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC", // native XLM SAC
   denomAmount: 1000000n,  // stroops per note (0.1 XLM)
   denomLabel: "0.1 XLM",
