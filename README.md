@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- BANNER SCREENSHOT — drag-and-drop your hero/app image into the GitHub editor and paste the generated asset URL into src="" below -->
-<img width="2880" alt="Sanctum Pool" src="" />
+<img width="2846" height="1556" alt="Screenshot from 2026-07-19 22-47-28" src="https://github.com/user-attachments/assets/bf9ab626-e9ca-49c2-b6ee-94f2aa23aad1" />
+
 
 <img src="https://img.shields.io/badge/Stellar-Soroban-7B2FBE?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Rust-no__std-red?style=for-the-badge" />
@@ -28,7 +28,7 @@
 | **Operator / ASP API (Render)** | https://sanctum-pool-uuhl.onrender.com |
 | **Verifier — Stellar Expert** | https://stellar.expert/explorer/testnet/contract/CAHBSVRPU4QRWPAUERYHEVOLL376Y7V4HPMQ6XNYF527ZLQD2NTEGNUZ |
 | **Pool — Stellar Expert** | https://stellar.expert/explorer/testnet/contract/CCDQ2BSPSUH7P2J7PK2E7Z6XLVFVTXYZVIPBUS42U22WMD2NMM7MUJCP |
-| **Demo Video** | _Not available_ |
+| **Demo Video** | [Youtube Video](https://sanctum-pool-nine.vercel.app/) |
 
 ---
 
@@ -56,6 +56,16 @@
 20. [User Feedback Implementation](#20-user-feedback-implementation)
 
 ---
+
+## Mobile Responsive View
+
+<div align="center">
+  <img
+    src="https://github.com/user-attachments/assets/f0e0edf1-ddeb-46ba-9732-fa43ff11e0fd"
+    alt="Screenshot from 2026-07-19 23-04-34"
+    width="280"
+  />
+</div>
 
 ## 1. What This Is
 
@@ -692,6 +702,9 @@ npx snarkjs groth16 verify circuits/keys/withdraw_vk.json \
 ---
 
 ## 14. CI/CD Pipeline
+
+<img width="2847" height="1109" alt="Screenshot from 2026-07-19 23-19-21" src="https://github.com/user-attachments/assets/9ec3882b-56ad-44d8-b961-a5f6ff9d89ae" />
+
 
 Three GitHub Actions workflows in `.github/workflows/`.
 
